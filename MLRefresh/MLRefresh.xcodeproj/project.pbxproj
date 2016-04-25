@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB111CB61CCE176100D73F79 /* Applogo_opacity20_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB111CB41CCE176100D73F79 /* Applogo_opacity20_dark@2x.png */; };
+		AB111CB71CCE176100D73F79 /* Applogo_opacity20_dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB111CB51CCE176100D73F79 /* Applogo_opacity20_dark@3x.png */; };
+		AB2A77731CCDCC0E000B6F49 /* Applogo_opacity20_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB2A77711CCDCC0E000B6F49 /* Applogo_opacity20_light@2x.png */; };
+		AB2A77741CCDCC0E000B6F49 /* Applogo_opacity20_light@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB2A77721CCDCC0E000B6F49 /* Applogo_opacity20_light@3x.png */; };
 		ABCCC8F51CBF85BC000DB4BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCCC8F41CBF85BC000DB4BE /* main.m */; };
 		ABCCC8F81CBF85BC000DB4BE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCCC8F71CBF85BC000DB4BE /* AppDelegate.m */; };
 		ABCCC8FB1CBF85BC000DB4BE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCCC8FA1CBF85BC000DB4BE /* ViewController.m */; };
@@ -36,6 +40,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB111CB41CCE176100D73F79 /* Applogo_opacity20_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Applogo_opacity20_dark@2x.png"; sourceTree = "<group>"; };
+		AB111CB51CCE176100D73F79 /* Applogo_opacity20_dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Applogo_opacity20_dark@3x.png"; sourceTree = "<group>"; };
+		AB2A77711CCDCC0E000B6F49 /* Applogo_opacity20_light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Applogo_opacity20_light@2x.png"; sourceTree = "<group>"; };
+		AB2A77721CCDCC0E000B6F49 /* Applogo_opacity20_light@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Applogo_opacity20_light@3x.png"; sourceTree = "<group>"; };
 		ABCCC8F01CBF85BC000DB4BE /* MLRefresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLRefresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABCCC8F41CBF85BC000DB4BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		ABCCC8F61CBF85BC000DB4BE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -110,6 +118,10 @@
 				ABCCC8F71CBF85BC000DB4BE /* AppDelegate.m */,
 				ABCCC8F91CBF85BC000DB4BE /* ViewController.h */,
 				ABCCC8FA1CBF85BC000DB4BE /* ViewController.m */,
+				AB2A77711CCDCC0E000B6F49 /* Applogo_opacity20_light@2x.png */,
+				AB2A77721CCDCC0E000B6F49 /* Applogo_opacity20_light@3x.png */,
+				AB111CB41CCE176100D73F79 /* Applogo_opacity20_dark@2x.png */,
+				AB111CB51CCE176100D73F79 /* Applogo_opacity20_dark@3x.png */,
 				ABCCC8FC1CBF85BC000DB4BE /* Main.storyboard */,
 				ABCCC8FF1CBF85BC000DB4BE /* Assets.xcassets */,
 				ABCCC9011CBF85BC000DB4BE /* LaunchScreen.storyboard */,
@@ -253,6 +265,10 @@
 			files = (
 				ABCCC9031CBF85BC000DB4BE /* LaunchScreen.storyboard in Resources */,
 				ABCCC9001CBF85BC000DB4BE /* Assets.xcassets in Resources */,
+				AB2A77731CCDCC0E000B6F49 /* Applogo_opacity20_light@2x.png in Resources */,
+				AB111CB61CCE176100D73F79 /* Applogo_opacity20_dark@2x.png in Resources */,
+				AB2A77741CCDCC0E000B6F49 /* Applogo_opacity20_light@3x.png in Resources */,
+				AB111CB71CCE176100D73F79 /* Applogo_opacity20_dark@3x.png in Resources */,
 				ABCCC8FE1CBF85BC000DB4BE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -507,6 +523,7 @@
 				ABCCC91F1CBF85BD000DB4BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ABCCC9201CBF85BD000DB4BE /* Build configuration list for PBXNativeTarget "MLRefreshTests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +532,7 @@
 				ABCCC9221CBF85BD000DB4BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ABCCC9231CBF85BD000DB4BE /* Build configuration list for PBXNativeTarget "MLRefreshUITests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +541,7 @@
 				ABCCC9251CBF85BD000DB4BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

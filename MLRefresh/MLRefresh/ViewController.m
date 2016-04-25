@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "MLRefreshView.h"
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UISlider *slider;
 @property(nonatomic, strong)MLRefreshView *refreshView;
 @end
 
@@ -17,6 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+}
+- (IBAction)sliderChanger:(id)sender {
+    [self.refreshView drawLineWithPercent:self.slider.value];
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.refreshView startAnimation];
@@ -27,7 +31,7 @@
 }
 - (MLRefreshView *)refreshView {
     if (!_refreshView) {
-        _refreshView = [MLRefreshView refreshViewWithFrame:CGRectMake(100, 100, 30, 30)];
+        _refreshView = [MLRefreshView refreshViewWithFrame:CGRectMake(100, 100, 50, 50) logoStyle:RefreshLogoNone];
         [self.view addSubview:_refreshView];
     }
     return _refreshView;
