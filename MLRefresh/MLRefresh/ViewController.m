@@ -11,19 +11,27 @@
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 @property(nonatomic, strong)MLRefreshView *refreshView;
+@property(nonatomic, assign)BOOL click;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.click = YES;
     // Do any additional setup after loading the view, typically from a nib.
 }
 - (IBAction)sliderChanger:(id)sender {
     [self.refreshView drawLineWithPercent:self.slider.value];
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    if (_click) {
     [self.refreshView startAnimation];
+        _click = NO;
+    }else {
+        [self.refreshView stopAnimation];
+        _click = YES;
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -31,7 +39,7 @@
 }
 - (MLRefreshView *)refreshView {
     if (!_refreshView) {
-        _refreshView = [MLRefreshView refreshViewWithFrame:CGRectMake(100, 100, 50, 50) logoStyle:RefreshLogoNone];
+        _refreshView = [MLRefreshView refreshViewWithFrame:CGRectMake(100, 100, 200, 200) logoStyle:RefreshLogoCommon];
         [self.view addSubview:_refreshView];
     }
     return _refreshView;

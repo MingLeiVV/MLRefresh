@@ -61,7 +61,7 @@
 - (instancetype)initWithFrame:(CGRect)frame logoStyle:(RefreshLogo)style {
     self = [super initWithFrame:frame];
     if (self) {
-        CGPoint center = CGPointMake(frame.size.width/2.0f, frame.size.height/2.0f);
+        CGPoint center = CGPointMake([UIScreen mainScreen].bounds.size.width/2.0f, frame.size.height/2.0f);
 //        CGFloat radius = (MIN(frame.size.width, frame.size.height))/2.0f;
         CGFloat radius = RADIUS_NONE;
         
@@ -70,6 +70,7 @@
 //            radius = (MAX(self.logoImage.bounds.size.width, self.logoImage.bounds.size.height))/2.0f + 10;
             radius = RADIUS_LOGO;
         }
+#pragma mark - 勿删
 //        UIBezierPath *lineLeft = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:DEGREES_TO_RADIANS(110) endAngle:DEGREES_TO_RADIANS(-80) clockwise:YES];
 //       self.layerLeft.path = lineLeft.CGPath;
 // 
@@ -109,6 +110,7 @@
     [self.layerLeft removeAllAnimations];
     [self.layerRight removeAllAnimations];
     self.container.transform = CATransform3DIdentity;
+    [self.container removeAllAnimations];
 }
 - (void)checkSeting {
     if (self.lineColor && self.lineColor.CGColor != self.layerLeft.strokeColor) {
@@ -116,8 +118,6 @@
     }
 }
 - (void)createLogo:(RefreshLogo)style {
-    self.logoImage.frame = self.bounds;
-    [self addSubview:self.logoImage];
     if (style == RefreshLogoCommon) {
         self.logoImage.image = [UIImage imageNamed:@"Applogo_opacity20_light"];
         [self changeLineColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
@@ -129,6 +129,9 @@
         self.layerLeft.lineWidth = 1;
         self.layerRight.lineWidth = 1;
     }
+    [self.logoImage sizeToFit];
+    self.logoImage.center = CGPointMake(self.bounds.size.width/2.0, self.bounds.size.height/2.0);
+    [self addSubview:self.logoImage];
     
 }
 - (void)changeLineColor:(UIColor *)color {
