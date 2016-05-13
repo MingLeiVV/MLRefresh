@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 #define SPEED 5       // 转动速度
-#define RING_COLOR [UIColor colorWithRed:221 green:0 blue:0 alpha:1.0].CGColor // 默认圆环颜色
 #define RING_LINE_WIDTH 2  // 圆环线的宽度
 
 typedef NS_ENUM(NSInteger, RefreshLogo) {
@@ -19,6 +18,7 @@ typedef NS_ENUM(NSInteger, RefreshLogo) {
 };
 @interface MLRefreshView : UIView
 @property(nonatomic, strong)UIColor *lineColor; // 不设置为默认颜色
+@property(nonatomic, assign, readonly)BOOL isLoading; // 是否在loading状态
  /**
  *  根据是否有logo创建不同的刷新样式
  *

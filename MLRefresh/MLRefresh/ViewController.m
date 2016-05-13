@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.refreshView;
     self.click = YES;
     // Do any additional setup after loading the view, typically from a nib.
 }
@@ -39,8 +40,9 @@
 }
 - (MLRefreshView *)refreshView {
     if (!_refreshView) {
-        _refreshView = [MLRefreshView refreshViewWithFrame:CGRectMake(100, 100, 200, 200) logoStyle:RefreshLogoCommon];
+        _refreshView = [MLRefreshView refreshViewWithFrame:CGRectMake(100, 100, 200, 200) logoStyle:RefreshLogoNone];
         [self.view addSubview:_refreshView];
+        _refreshView.lineColor = [UIColor blueColor];
     }
     return _refreshView;
 }
