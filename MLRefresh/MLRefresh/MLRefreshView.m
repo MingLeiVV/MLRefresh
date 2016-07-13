@@ -12,12 +12,12 @@
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 #define STROKE_END_RADIAN 180/RADIANS_TO_DEGREES(M_PI)
 #define STROKE_PROCESS_RADIAN(angle) angle/RADIANS_TO_DEGREES(M_PI)
-#define DRAW_LINE_RATE 7.5 // 画线速率
-#define RECURRENT 4 // 周期
-#define RADIUS_NONE 20
-#define RADIUS_LOGO 32.5
-#define STROKE_STEP 170
-#define DRAW_LINE_ROTATE M_PI_4
+static const float DRAW_LINE_RATE = 7.5; // 画线速率
+static const float RECURRENT = 4; // 周期
+static const float RADIUS_NONE = 15; // 无logo半径
+static const float RADIUS_LOGO = 32.5; // logo半径
+static const float STROKE_STEP = 170; // 一圈
+static const float DRAW_LING_ROTATE = M_PI_4;
 
 @interface MLSpinnerRing : CAShapeLayer
 - (instancetype)initWithFrame:(CGRect)frame;
@@ -69,10 +69,10 @@
         
         if ([self isHasLogo]) {
             [self createLogo:style];
+            [self registerNotification];
         }
-#pragma mark - 勿删
-    
         [self changeAnchor:NO];
+        [self resetAnimation];
     }
     return self;
 }
@@ -91,20 +91,28 @@
 }
 - (void)drawLineWithPercent:(CGFloat)percent {
         [self checkSeting];
+    if (percent >= STROKE_PROCESS_RADIAN(160)) {
+        percent = STROKE_PROCESS_RADIAN(160);
+    }
     [UIView animateWithDuration:0.1 animations:^{
         [self.layerLeft setStrokeEnd:percent];
         [self.layerRight setStrokeEnd:percent];
-        self.container.transform = CATransform3DMakeRotation(DRAW_LINE_ROTATE * percent, 0, 0, 1);
+        self.container.transform = CATransform3DMakeRotation(DRAW_LING_ROTATE * percent, 0, 0, 1);
     }];
 
 }
 #pragma mark - privateMethod
 - (void)clearAllAnimation {
     [self.layer removeAllAnimations];
+    [self resetAnimation];
+}
+- (void)resetAnimation {
     [self.layerLeft removeAllAnimations];
     [self.layerRight removeAllAnimations];
     self.container.transform = CATransform3DIdentity;
     [self.container removeAllAnimations];
+    [self.layerLeft setStrokeEnd:0.01];
+    [self.layerRight setStrokeEnd:0.01];
 }
 - (void)checkSeting {
     if (self.lineColor && self.lineColor.CGColor != self.layerLeft.strokeColor) {
@@ -132,8 +140,6 @@
     
     self.layerLeft.path = lineLeft.CGPath;
     self.layerRight.path = lineRight.CGPath;
-    [self.layerLeft setStrokeEnd:0.01];
-    [self.layerRight setStrokeEnd:0.01];
 }
 - (NSDictionary *)calculateAngle:(CGFloat)leftStartPosition {
     CGFloat leftStartAngle = leftStartPosition;
@@ -168,6 +174,47 @@
     self.layerRight.strokeColor = color.CGColor;
 
 }
+
+/**
+ *  注册通知
+ */
+- (void)registerNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleAppActivity:)
+                                                 name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleAppActivity:)
+                                                 name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+// 处理后台和前台，让动画更亲和
+- (void)handleAppActivity:(NSNotification *)notification {
+    
+    if (notification.name == UIApplicationDidEnterBackgroundNotification) {
+        // 后台
+        //记录暂停时间
+        CFTimeInterval pauseTime =   [self.container convertTime:CACurrentMediaTime() fromLayer:nil];
+        //设置动画速度为0
+        self.container.speed = 0;
+        //设置动画的偏移时间
+        self.container.timeOffset = pauseTime;
+        
+    }else if (notification.name == UIApplicationWillEnterForegroundNotification) {
+        // 前台
+        //暂停的时间
+        CFTimeInterval pauseTime = self.container.timeOffset;
+        //设置动画速度为1
+        self.container.speed = 1;
+        //重置偏移时间
+        self.container.timeOffset = 0;
+        //重置开始时间
+        self.container.beginTime = 0;
+        //计算开始时间
+        CFTimeInterval timeSincePause = [self.container convertTime:CACurrentMediaTime() fromLayer:nil] - pauseTime;
+        //设置开始时间
+        self.container.beginTime = timeSincePause;
+    }
+}
+
 
 #pragma mark - lazy
 - (CALayer *)container {
@@ -209,8 +256,8 @@
     if (!_rotateAnimation) {
         _rotateAnimation =[CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
         _rotateAnimation.duration = self.strokeEndAnimation.duration / RECURRENT;
-        _rotateAnimation.fromValue = @(DRAW_LINE_ROTATE + DEGREES_TO_RADIANS(30));
-        _rotateAnimation.toValue = @(DRAW_LINE_ROTATE + DEGREES_TO_RADIANS(30) + M_PI);
+        _rotateAnimation.fromValue = @(DRAW_LING_ROTATE + DEGREES_TO_RADIANS(30));
+        _rotateAnimation.toValue = @(DRAW_LING_ROTATE + DEGREES_TO_RADIANS(30) + M_PI);
         _rotateAnimation.repeatCount = HUGE_VAL;
         _rotateAnimation.autoreverses = NO;
         _rotateAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
@@ -222,5 +269,9 @@
         _logoImage = [[UIImageView alloc]init];
     }
     return _logoImage;
+}
+- (void)dealloc {
+    // 移除所有通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end
