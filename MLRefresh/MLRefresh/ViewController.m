@@ -42,7 +42,7 @@
     if (!_refreshView) {
         _refreshView = [MLRefreshView refreshViewWithFrame:CGRectMake(100, 100, 200, 200) logoStyle:RefreshLogoNone];
         [self.view addSubview:_refreshView];
-        _refreshView.lineColor = [UIColor blueColor];
+//        _refreshView.lineColor = [UIColor blueColor];
     }
     return _refreshView;
 }

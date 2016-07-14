@@ -260,6 +260,7 @@ static const float DRAW_LING_ROTATE = M_PI_4;
         _rotateAnimation.toValue = @(DRAW_LING_ROTATE + DEGREES_TO_RADIANS(30) + M_PI);
         _rotateAnimation.repeatCount = HUGE_VAL;
         _rotateAnimation.autoreverses = NO;
+        _rotateAnimation.removedOnCompletion = NO;
         _rotateAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
     }
     return _rotateAnimation;
